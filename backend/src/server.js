@@ -57,7 +57,7 @@ if (require.main === module) {
       await seedData(false);
     }
 
-    app.listen(PORT, () => {
+    app.listen(PORT, '0.0.0.0', () => {
       console.log(`===============================================`);
       console.log(`🚀 Feedants Competition API running on port ${PORT}`);
       console.log(`📍 Base URL: http://localhost:${PORT}/api/competitions`);

@@ -1,9 +1,11 @@
 import { Platform } from 'react-native';
 
-// Resolve host for different environments: Web, iOS simulator, Android emulator
+// Resolve host for different environments: Web, iOS simulator, Android emulator, and Cloud
 const getBaseUrl = () => {
-  if (process.env.EXPO_PUBLIC_API_URL) {
-    return process.env.EXPO_PUBLIC_API_URL;
+  const envUrl = process.env.EXPO_PUBLIC_API_URL;
+  if (envUrl) {
+    const cleaned = envUrl.trim().replace(/\/+$/, '');
+    return cleaned.endsWith('/api') ? cleaned : `${cleaned}/api`;
   }
   if (Platform.OS === 'android') {
     // Android emulator loops back to host via 10.0.2.2

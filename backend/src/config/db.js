@@ -8,7 +8,7 @@ let mongodInstance = null;
  * an in-memory MongoDB instance for zero-dependency local evaluation and testing.
  */
 async function connectDB() {
-  const mongoUri = process.env.MONGO_URI;
+  const mongoUri = process.env.MONGO_URI || process.env.MONGODB_URI;
   const forceMemory = process.env.USE_MEMORY_DB === 'true';
 
   if (!forceMemory && mongoUri) {

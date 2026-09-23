@@ -1,0 +1,34 @@
+services:
+  # Backend API Web Service
+  - type: web
+    name: freedance-backend
+    env: node
+    plan: free
+    region: oregon
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5000
+
+  # Frontend Web Application (Static Site)
+  - type: web
+    name: freedance-frontend
+    env: static
+    plan: free
+    region: oregon
+    rootDir: mobile
+    buildCommand: npm install && npm run build:web
+    staticPublishPath: ./dist
+    headers:
+      - path: /*
+        name: Cache-Control
+        value: no-cache
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
